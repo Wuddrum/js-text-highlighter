@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Js Text Highlighter Example</title>
+    <style>
+        body {
+            background-color: #CECECE;
+            padding: 0;
+            margin: 0;
+        }
+        .container {
+            width: 940px;
+            background-color: #FFFFFF;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        .dummy-article {
+            display: none;
+        }
+        .article-title {
+            font-weight: bold;
+            font-size: 24px;
+            margin-top: 48px;
+        }
+        .article-body {
+            font-size: 16px;
+        }
+        .article-footer {
+            font-size: 14px;
+            border: 1px solid #000000;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css">
+    <link rel="stylesheet" href="highlighter.css">
+    <script src="highlighter.js"></script>
+    <script>
+        window.addEventListener("load", function() {
+            var highlighter = new Highlighter(
+                'container',
+                ['article'],
+                ['article-body'],
+                [
+                    ['purus quis', 'This is some generic lorem ipsum text', 'http://google.com'],
+                    ['amet', 'Some popup text', 'http://google.com'],
+                    ['eget', 'Some eget text', 'http://google.com']
+                ]
+            );
+            highlighter.run();
+
+            var container = document.getElementsByClassName("container")[0];
+            window.addEventListener("scroll", function() {
+                if (container.getBoundingClientRect().bottom - 300 < window.innerHeight) {
+                    var article = document.getElementsByClassName("dummy-article")[0];
+                    var articleClone = article.cloneNode(true);
+                    articleClone.className = "article";
+                    container.appendChild(articleClone);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="dummy-article">
+            <div class="article-title">Purus quis, amet and eget is not matched in the title</div>
+            <div class="article-body">
+                <p>Lorem ipsum dolor sit AMET, consectetur adipiscing elit. Duis vulputate id leo nec tempor. Fusce et tristique purus. Donec convallis pellentesque libero ac pharetra. Vivamus lacinia pretium orci, id mattis lorem eleifend at. Phasellus ac purus orci. Cras accumsan condimentum neque quis efficitur. Curabitur eu malesuada lorem, non convallis lacus. Phasellus convallis ante et neque feugiat, et mattis justo pulvinar. Duis tincidunt erat id arcu consequat tristique.</p>
+                <p>Suspendisse elit mauris, accumsan et lacus id, porta mollis tellus. Quisque sit amet dignissim orci. Pellentesque et tortor at quam tristique venenatis. Nullam sodales urna ut risus rutrum, at imperdiet arcu molestie. Mauris vel diam efficitur arcu ultrices fermentum. Proin faucibus purus eget ante viverra mattis. Cras vitae sapien dolor. Nam placerat feugiat ullamcorper. Fusce aliquam nisi augue.</p>
+                <p>Donec tempus mollis imperdiet. Donec massa dolor, ornare ut luctus eget, sagittis at turpis. Vivamus eu leo justo. Curabitur tristique a nibh non volutpat. Donec ac gravida ligula. Cras ante mauris, dignissim non scelerisque eu, pellentesque vel sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed molestie magna ac magna placerat pharetra. Nam euismod ipsum felis, nec pharetra leo consequat a. Sed sed maximus diam. Sed eu semper diam. Sed non tortor tellus. Fusce cursus, erat vel pretium consequat, risus velit scelerisque nisl, sed semper mauris nibh vel velit. Nunc non leo eget dolor tempor bibendum in eu tortor.</p>
+                <p>Proin vitae lorem quis ex rhoncus faucibus sed in enim. Morbi volutpat purus quis neque imperdiet dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut at mi non purus eleifend placerat. Ut placerat non diam sed condimentum. Quisque tincidunt erat non urna dignissim varius. Donec vitae tellus sit amet velit blandit tempus. Aenean malesuada tellus metus, ut volutpat purus pharetra in. In vehicula tellus sit amet purus commodo, ac maximus ante facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac porta massa. Donec sed dui ex. Morbi non consequat tortor. Nullam ullamcorper vulputate leo id lacinia. Curabitur blandit turpis dui, ac commodo sem commodo ac. Sed maximus consectetur dui a faucibus.</p>
+                <p>Etiam Eget ante sodales ante sodales aliquam. Donec ligula mi, finibus a lectus vel, mattis venenatis mauris. Donec vitae euismod ipsum, eget ultricies ex. Phasellus iaculis metus ac lorem pellentesque elementum. Suspendisse blandit neque at erat pretium eleifend. Cras in nunc at arcu bibendum gravida in in nunc. Vivamus imperdiet elementum lacus, eu scelerisque ligula pulvinar sit amet. Donec sagittis metus neque, vitae sollicitudin leo tincidunt in. Suspendisse egestas convallis lacus, eu euismod ante mollis quis. Curabitur sodales ultricies metus at molestie. Aenean commodo rutrum lectus, ac convallis nisl cursus ac. Aliquam pulvinar luctus libero vel congue. Fusce sapien libero, imperdiet vel tristique vel, fringilla rutrum magna.</p>
+            </div>
+            <div class="article-footer">Purus quis, amet and eget is also not matched in the footer</div>
+        </div>
+        <div class="article">
+            <div class="article-title">Purus quis, amet and eget is not matched in the title</div>
+            <div class="article-body">
+                <p>Lorem ipsum dolor sit AMET, consectetur adipiscing elit. Duis vulputate id leo nec tempor. Fusce et tristique purus. Donec convallis pellentesque libero ac pharetra. Vivamus lacinia pretium orci, id mattis lorem eleifend at. Phasellus ac purus orci. Cras accumsan condimentum neque quis efficitur. Curabitur eu malesuada lorem, non convallis lacus. Phasellus convallis ante et neque feugiat, et mattis justo pulvinar. Duis tincidunt erat id arcu consequat tristique.</p>
+                <p>Suspendisse elit mauris, accumsan et lacus id, porta mollis tellus. Quisque sit amet dignissim orci. Pellentesque et tortor at quam tristique venenatis. Nullam sodales urna ut risus rutrum, at imperdiet arcu molestie. Mauris vel diam efficitur arcu ultrices fermentum. Proin faucibus purus eget ante viverra mattis. Cras vitae sapien dolor. Nam placerat feugiat ullamcorper. Fusce aliquam nisi augue.</p>
+                <p>Donec tempus mollis imperdiet. Donec massa dolor, ornare ut luctus eget, sagittis at turpis. Vivamus eu leo justo. Curabitur tristique a nibh non volutpat. Donec ac gravida ligula. Cras ante mauris, dignissim non scelerisque eu, pellentesque vel sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed molestie magna ac magna placerat pharetra. Nam euismod ipsum felis, nec pharetra leo consequat a. Sed sed maximus diam. Sed eu semper diam. Sed non tortor tellus. Fusce cursus, erat vel pretium consequat, risus velit scelerisque nisl, sed semper mauris nibh vel velit. Nunc non leo eget dolor tempor bibendum in eu tortor.</p>
+                <p>Proin vitae lorem quis ex rhoncus faucibus sed in enim. Morbi volutpat purus quis neque imperdiet dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut at mi non purus eleifend placerat. Ut placerat non diam sed condimentum. Quisque tincidunt erat non urna dignissim varius. Donec vitae tellus sit amet velit blandit tempus. Aenean malesuada tellus metus, ut volutpat purus pharetra in. In vehicula tellus sit amet purus commodo, ac maximus ante facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac porta massa. Donec sed dui ex. Morbi non consequat tortor. Nullam ullamcorper vulputate leo id lacinia. Curabitur blandit turpis dui, ac commodo sem commodo ac. Sed maximus consectetur dui a faucibus.</p>
+                <p>Etiam Eget ante sodales ante sodales aliquam. Donec ligula mi, finibus a lectus vel, mattis venenatis mauris. Donec vitae euismod ipsum, eget ultricies ex. Phasellus iaculis metus ac lorem pellentesque elementum. Suspendisse blandit neque at erat pretium eleifend. Cras in nunc at arcu bibendum gravida in in nunc. Vivamus imperdiet elementum lacus, eu scelerisque ligula pulvinar sit amet. Donec sagittis metus neque, vitae sollicitudin leo tincidunt in. Suspendisse egestas convallis lacus, eu euismod ante mollis quis. Curabitur sodales ultricies metus at molestie. Aenean commodo rutrum lectus, ac convallis nisl cursus ac. Aliquam pulvinar luctus libero vel congue. Fusce sapien libero, imperdiet vel tristique vel, fringilla rutrum magna.</p>
+            </div>
+            <div class="article-footer">Purus quis, amet and eget is also not matched in the footer</div>
+        </div>
+        <div class="article">
+            <div class="article-title">Purus quis, amet and eget is not in the title</div>
+            <div class="article-body">
+                <p>Lorem ipsum dolor sit AMET, consectetur adipiscing elit. Duis vulputate id leo nec tempor. Fusce et tristique purus. Donec convallis pellentesque libero ac pharetra. Vivamus lacinia pretium orci, id mattis lorem eleifend at. Phasellus ac purus orci. Cras accumsan condimentum neque quis efficitur. Curabitur eu malesuada lorem, non convallis lacus. Phasellus convallis ante et neque feugiat, et mattis justo pulvinar. Duis tincidunt erat id arcu consequat tristique.</p>
+                <p>Suspendisse elit mauris, accumsan et lacus id, porta mollis tellus. Quisque sit amet dignissim orci. Pellentesque et tortor at quam tristique venenatis. Nullam sodales urna ut risus rutrum, at imperdiet arcu molestie. Mauris vel diam efficitur arcu ultrices fermentum. Proin faucibus purus eget ante viverra mattis. Cras vitae sapien dolor. Nam placerat feugiat ullamcorper. Fusce aliquam nisi augue.</p>
+                <p>Donec tempus mollis imperdiet. Donec massa dolor, ornare ut luctus eget, sagittis at turpis. Vivamus eu leo justo. Curabitur tristique a nibh non volutpat. Donec ac gravida ligula. Cras ante mauris, dignissim non scelerisque eu, pellentesque vel sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed molestie magna ac magna placerat pharetra. Nam euismod ipsum felis, nec pharetra leo consequat a. Sed sed maximus diam. Sed eu semper diam. Sed non tortor tellus. Fusce cursus, erat vel pretium consequat, risus velit scelerisque nisl, sed semper mauris nibh vel velit. Nunc non leo eget dolor tempor bibendum in eu tortor.</p>
+                <p>Proin vitae lorem quis ex rhoncus faucibus sed in enim. Morbi volutpat purus quis neque imperdiet dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut at mi non purus eleifend placerat. Ut placerat non diam sed condimentum. Quisque tincidunt erat non urna dignissim varius. Donec vitae tellus sit amet velit blandit tempus. Aenean malesuada tellus metus, ut volutpat purus pharetra in. In vehicula tellus sit amet purus commodo, ac maximus ante facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac porta massa. Donec sed dui ex. Morbi non consequat tortor. Nullam ullamcorper vulputate leo id lacinia. Curabitur blandit turpis dui, ac commodo sem commodo ac. Sed maximus consectetur dui a faucibus.</p>
+                <p>Etiam Eget ante sodales ante sodales aliquam. Donec ligula mi, finibus a lectus vel, mattis venenatis mauris. Donec vitae euismod ipsum, eget ultricies ex. Phasellus iaculis metus ac lorem pellentesque elementum. Suspendisse blandit neque at erat pretium eleifend. Cras in nunc at arcu bibendum gravida in in nunc. Vivamus imperdiet elementum lacus, eu scelerisque ligula pulvinar sit amet. Donec sagittis metus neque, vitae sollicitudin leo tincidunt in. Suspendisse egestas convallis lacus, eu euismod ante mollis quis. Curabitur sodales ultricies metus at molestie. Aenean commodo rutrum lectus, ac convallis nisl cursus ac. Aliquam pulvinar luctus libero vel congue. Fusce sapien libero, imperdiet vel tristique vel, fringilla rutrum magna.</p>
+            </div>
+            <div class="article-footer">Purus quis, amet and eget is also not matched in the footer</div>
+        </div>
+        <div class="article">
+            <div class="article-title">Purus quis, amet and eget is not matched in the title</div>
+            <div class="article-body">
+                <p>Lorem ipsum dolor sit AMET, consectetur adipiscing elit. Duis vulputate id leo nec tempor. Fusce et tristique purus. Donec convallis pellentesque libero ac pharetra. Vivamus lacinia pretium orci, id mattis lorem eleifend at. Phasellus ac purus orci. Cras accumsan condimentum neque quis efficitur. Curabitur eu malesuada lorem, non convallis lacus. Phasellus convallis ante et neque feugiat, et mattis justo pulvinar. Duis tincidunt erat id arcu consequat tristique.</p>
+                <p>Suspendisse elit mauris, accumsan et lacus id, porta mollis tellus. Quisque sit amet dignissim orci. Pellentesque et tortor at quam tristique venenatis. Nullam sodales urna ut risus rutrum, at imperdiet arcu molestie. Mauris vel diam efficitur arcu ultrices fermentum. Proin faucibus purus eget ante viverra mattis. Cras vitae sapien dolor. Nam placerat feugiat ullamcorper. Fusce aliquam nisi augue.</p>
+                <p>Donec tempus mollis imperdiet. Donec massa dolor, ornare ut luctus eget, sagittis at turpis. Vivamus eu leo justo. Curabitur tristique a nibh non volutpat. Donec ac gravida ligula. Cras ante mauris, dignissim non scelerisque eu, pellentesque vel sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed molestie magna ac magna placerat pharetra. Nam euismod ipsum felis, nec pharetra leo consequat a. Sed sed maximus diam. Sed eu semper diam. Sed non tortor tellus. Fusce cursus, erat vel pretium consequat, risus velit scelerisque nisl, sed semper mauris nibh vel velit. Nunc non leo eget dolor tempor bibendum in eu tortor.</p>
+                <p>Proin vitae lorem quis ex rhoncus faucibus sed in enim. Morbi volutpat purus quis neque imperdiet dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut at mi non purus eleifend placerat. Ut placerat non diam sed condimentum. Quisque tincidunt erat non urna dignissim varius. Donec vitae tellus sit amet velit blandit tempus. Aenean malesuada tellus metus, ut volutpat purus pharetra in. In vehicula tellus sit amet purus commodo, ac maximus ante facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac porta massa. Donec sed dui ex. Morbi non consequat tortor. Nullam ullamcorper vulputate leo id lacinia. Curabitur blandit turpis dui, ac commodo sem commodo ac. Sed maximus consectetur dui a faucibus.</p>
+                <p>Etiam Eget ante sodales ante sodales aliquam. Donec ligula mi, finibus a lectus vel, mattis venenatis mauris. Donec vitae euismod ipsum, eget ultricies ex. Phasellus iaculis metus ac lorem pellentesque elementum. Suspendisse blandit neque at erat pretium eleifend. Cras in nunc at arcu bibendum gravida in in nunc. Vivamus imperdiet elementum lacus, eu scelerisque ligula pulvinar sit amet. Donec sagittis metus neque, vitae sollicitudin leo tincidunt in. Suspendisse egestas convallis lacus, eu euismod ante mollis quis. Curabitur sodales ultricies metus at molestie. Aenean commodo rutrum lectus, ac convallis nisl cursus ac. Aliquam pulvinar luctus libero vel congue. Fusce sapien libero, imperdiet vel tristique vel, fringilla rutrum magna.</p>
+            </div>
+            <div class="article-footer">Purus quis, amet and eget is also not matched in the footer</div>
+        </div>
+    </div>
+</body>
+</html>
