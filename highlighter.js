@@ -53,7 +53,7 @@ function Highlighter(classToObserve, insertedClassWhitelist, textContainerClassW
 
     function processTextNodes(textNodes) {
         textNodes.forEach(function(textNode) {
-            if (textNode.parentNode.nodeName === 'SCRIPT') {
+            if (!textNode.parentNode || textNode.parentNode.nodeName === 'SCRIPT') {
                 return;
             }
 
