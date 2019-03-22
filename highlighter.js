@@ -93,7 +93,7 @@ function Highlighter(classToObserve, insertedClassWhitelist, textContainerClassW
         return '<a class="highlight" href="' + highlight[2] + '" highlighter-tooltip="' + highlight[1] + '" target="_blank">$1</a>';
     }
 
-    function escapeHighlightsRegExp(str) {
+    function escapeHighlightsRegExp() {
         highlights.forEach(function(highlight) {
             highlight.push(highlight[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
         });
