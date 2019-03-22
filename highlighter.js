@@ -1,6 +1,8 @@
 function Highlighter(classToObserve, insertedClassWhitelist, textContainerClassWhitelist, highlights) {
 
     this.run = function() {
+        escapeHighlightsRegExp();
+
         var elementToObserve = document.getElementsByClassName(classToObserve)[0];
         insertedClassWhitelist.forEach(function(insertedClass) {
             var InsertElements = elementToObserve.getElementsByClassName(insertedClass);
@@ -66,7 +68,7 @@ function Highlighter(classToObserve, insertedClassWhitelist, textContainerClassW
                 }
 
                 var highlightMarkup = getHighlightMarkup(highlight);
-                newInnerHTML = newInnerHTML.replace(new RegExp('(' + highlight[0] + ')', 'gmi'), highlightMarkup);
+                newInnerHTML = newInnerHTML.replace(new RegExp('(' + highlight[3] + ')', 'gmi'), highlightMarkup);
 
                 highlightAdded = true;
             });
@@ -81,6 +83,12 @@ function Highlighter(classToObserve, insertedClassWhitelist, textContainerClassW
 
     function getHighlightMarkup(highlight) {
         return '<a class="highlight" href="' + highlight[2] + '" data-balloon="' + highlight[1] + '" data-balloon-pos="up" target="_blank">$1</a>';
+    }
+
+    function escapeHighlightsRegExp(str) {
+        highlights.forEach(function(highlight) {
+            highlight.push(highlight[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+        });
     }
 
     function onMutationsObserved(mutationRecords) {
