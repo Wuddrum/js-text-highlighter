@@ -33,7 +33,11 @@ function Highlighter(classToObserve, insertedClassWhitelist, textContainerClassW
     function processMutationRecord(mutationRecord) {
         Array.prototype.forEach.call(mutationRecord.addedNodes, function(node) {
             for (let i = 0; i < insertedClassWhitelist.length; i++) {
-                if (node.className !== insertedClassWhitelist[i]) {
+                if (!node.classList) {
+                    return;
+                }
+
+                if (!node.classList.contains(insertedClassWhitelist[i])) {
                     continue;
                 }
 
