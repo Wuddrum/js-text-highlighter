@@ -2,20 +2,25 @@ function Highlighter(classToObserve, insertedClassWhitelist, textContainerClassW
 
     this.run = function() {
         escapeHighlightsRegExp();
+        highlightCurrentDocument();
+        startMutationObserver();
+    }
 
+    function highlightCurrentDocument() {
         var elementToObserve = document.getElementsByClassName(classToObserve)[0];
         insertedClassWhitelist.forEach(function(insertedClass) {
             var InsertElements = elementToObserve.getElementsByClassName(insertedClass);
-            Array.prototype.forEach.call(InsertElements, function(insertedElement) {
-                processInsertedNode(insertedElement);
-            });
+            Array.prototype.forEach.call(InsertElements, processInsertedNode);
         });
+    }
 
+    function startMutationObserver() {
+        var elementToObserve = document.getElementsByClassName(classToObserve)[0];
         var mutationObserver = new MutationObserver(onMutationsObserved);
         mutationObserver.observe(elementToObserve, {
             childList: true,
             subtree: true
-        })
+        });
     }
 
     function getTextNodes(el) {
@@ -52,37 +57,35 @@ function Highlighter(classToObserve, insertedClassWhitelist, textContainerClassW
         textContainerClassWhitelist.forEach(function(textContainerClass) {
             Array.prototype.forEach.call(insertedNode.getElementsByClassName(textContainerClass), function(textContainerNode) {
                 var textNodes = getTextNodes(textContainerNode);
-                processTextNodes(textNodes);
+                textNodes.forEach(processTextNode);
             });
         });
     }
 
-    function processTextNodes(textNodes) {
-        textNodes.forEach(function(textNode) {
-            if (!textNode.parentNode || textNode.parentNode.nodeName === 'SCRIPT') {
+    function processTextNode(textNode) {
+        if (!textNode.parentNode || textNode.parentNode.nodeName === 'SCRIPT') {
+            return;
+        }
+
+        var highlightAdded = false;
+        var newInnerHTML = textNode.parentNode.innerHTML;
+        var lowerCaseTextContent = textNode.textContent.toLowerCase();
+        highlights.forEach(function(highlight) {
+            if (lowerCaseTextContent.indexOf(highlight[0].toLowerCase()) < 0) {
                 return;
             }
 
-            var highlightAdded = false;
-            var newInnerHTML = textNode.parentNode.innerHTML;
-            var lowerCaseTextContent = textNode.textContent.toLowerCase();
-            highlights.forEach(function(highlight) {
-                if (lowerCaseTextContent.indexOf(highlight[0].toLowerCase()) < 0) {
-                    return;
-                }
+            var highlightMarkup = getHighlightMarkup(highlight);
+            newInnerHTML = newInnerHTML.replace(new RegExp('(' + highlight[3] + ')', 'gmi'), highlightMarkup);
 
-                var highlightMarkup = getHighlightMarkup(highlight);
-                newInnerHTML = newInnerHTML.replace(new RegExp('(' + highlight[3] + ')', 'gmi'), highlightMarkup);
-
-                highlightAdded = true;
-            });
-
-            if (!highlightAdded) {
-                return;
-            }
-            
-            textNode.parentNode.innerHTML = newInnerHTML;
+            highlightAdded = true;
         });
+
+        if (!highlightAdded) {
+            return;
+        }
+
+        textNode.parentNode.innerHTML = newInnerHTML;
     }
 
     function getHighlightMarkup(highlight) {
