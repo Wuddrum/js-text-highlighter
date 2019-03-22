@@ -89,7 +89,7 @@ function Highlighter(classToObserve, insertedClassWhitelist, textContainerClassW
     }
 
     function getHighlightMarkup(highlight) {
-        return '<a class="highlight" href="' + highlight[2] + '" data-balloon="' + highlight[1] + '" data-balloon-pos="up" target="_blank">$1</a>';
+        return '<a class="highlight" href="' + highlight[2] + '" highlighter-tooltip="' + highlight[1] + '" target="_blank">$1</a>';
     }
 
     function escapeHighlightsRegExp(str) {

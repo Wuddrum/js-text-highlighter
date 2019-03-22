@@ -1,7 +1,63 @@
 a.highlight,
 a.highlight:hover {
+    position: relative;
     text-decoration: none;
     color: #000000;
     background-color: #F6DF6C;
     padding: 1px;
+}
+
+a.highlight:before {
+    position: absolute;
+    content: '';
+    bottom: 100%;
+    left: 50%;
+    transform: translate(0, 12px);
+    opacity: 0;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-top-color: #111111;
+    border-bottom: 0;
+    margin-left: -8px;
+    margin-right: -8px;
+    margin-bottom: 4px;
+    z-index: 10;
+    pointer-events: none;
+    transition: all 0.18s ease-out 0.18s;
+}
+
+a.highlight:after {
+    position: absolute;
+    content: attr(highlighter-tooltip);
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, 12px);
+    opacity: 0;
+    pointer-events: none;
+    font-family: sans-serif !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    text-shadow: none !important;
+    font-size: 12px !important;
+    background: #111111;
+    border-radius: 4px;
+    color: #FFFFFF;
+    padding: .5em 1em;
+    margin-bottom: 11px;
+    white-space: nowrap;
+    z-index: 10;
+    transition: all 0.18s ease-out 0.18s;
+}
+
+a.highlight:hover:before {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+a.highlight:hover:after {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translate(-50%, 0);
 }
