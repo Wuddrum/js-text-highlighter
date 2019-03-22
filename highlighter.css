@@ -1,6 +1,7 @@
-.highlight {
+a.highlight,
+a.highlight:hover {
     text-decoration: none;
     color: #000000;
-    background-color: #f1c40f;
+    background-color: #F6DF6C;
     padding: 1px;
 }
